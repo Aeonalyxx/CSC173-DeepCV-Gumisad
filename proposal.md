@@ -41,10 +41,10 @@ You will only preview samples locally; processing and training will be done in t
 
 ## 5. Technical Approach
 - Architecture sketch
-    ### 1. Cloud-based training (Google Colab GPU)
-    ### 2. Color segmentation using OpenCV (runs fast even locally)
-    ### 3. CNN inference with optimized model (MobileNetV2 or EfficientNet-B0)
-    ### 4. Visualization (overlays/heatmaps)
+    ##### 1. Cloud-based training (Google Colab GPU)
+    ##### 2. Color segmentation using OpenCV (runs fast even locally)
+    ##### 3. CNN inference with optimized model (MobileNetV2 or EfficientNet-B0)
+    ##### 4. Visualization (overlays/heatmaps)
 
 - Model: MobileNetV2
 
