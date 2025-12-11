@@ -31,16 +31,16 @@ Skin imperfections can affect self-confidence and are often difficult to detect 
 - Phase 5: Lightweight interface for local use (Streamlit or simple GUI)
 
 ### Objectives
-- [Objective 1: e.g., Achieve >90% detection accuracy]
-- [Objective 2: Integrate with decision logic]
-- [Objective 3: Deploy on edge device]
+- Objective 1: Achieve at least 90% classification accuracy for skin-imperfection detection
+- Objective 2: Integrate color-segmentation–based region filtering to improve model focus on skin areas
+- Objective 3: Deploy a lightweight demo applicaton (Streamlit/local GUI) capable of running on normal laptops
 
 ![Problem Demo](images/problem_example.gif) [web:41]
 
 ## Related Work
-- [Paper 1: YOLOv8 for real-time detection [1]]
-- [Paper 2: Transfer learning on custom datasets [2]]
-- [Gap: Your unique approach, e.g., Mindanao-specific waste classes] [web:25]
+- Work 1: CNN and YOLO-based acne and skin lesion detection in dermatology applications
+- Work 2: Transfer learning (MobileNet2) proven effective for limited medical image datasets
+- Gap Addressed: Most systems focus on severe dermatological diseases; this project targets cosmetic imperfections (dark spots, acne marks, pigmentation), aiming for lightweight deployment and real-time feedback
 
 ## Methodology
 ### Dataset
@@ -48,7 +48,7 @@ Skin imperfections can affect self-confidence and are often difficult to detect 
     - Kaggle: Acne Detection Dataset
     - ISIC Skin Lesion Archive
     - DermNet pigment/dark spot images
-- Size: 5,000–15,000 images
+- Size: 5,000 – 15,000 images
 - Classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin
 - Acquisition: Directly imported into Google Colab via Kaggle API; preprocessing (CLAHE, resizing, color space conversion) done in cloud environment.
 - Preprocessing:
