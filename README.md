@@ -1,8 +1,8 @@
 # [Project Title: e.g., Real-Time Object Detection for Waste Sorting]
 **CSC173 Intelligent Systems Final Project**  
 *Mindanao State University - Iligan Institute of Technology*  
-**Student:** Chris Adrian D. Gumisad, 2020-3275
-**Semester:** AY 2025-2026 Sem 1  
+**Student:** Chris Adrian D. Gumisad, 2020-3275  
+**Semester:** AY 2025-2026 Sem 1
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
 
 ## Abstract
@@ -23,6 +23,13 @@ This project aims to create a computer vision system capable of detecting skin i
 ### Problem Statement
 Skin imperfections can affect self-confidence and are often difficult to detect accurately due to variations in lighting, skin tone, and subjective human perception. Manual inspection may miss subtle spots or marks, while existing beauty apps focus mainly on enhancement rather than precise detection. This project develops a computer vision-based system to objectively detect skin imperfections and provide visual feedback using deep learning and color segmentation.
 
+### Project Plan
+- Phase 1: Dataset collection and preprocessing (resize, CLAHE, color segmentation)
+- Phase 2: Model training (MobileNetV2 with transfer learning on cloud GPUs)
+- Phase 3: Model evaluation (accuracy, precision, recall, F1-score)
+- Phase 4: Demo visualization (patch heatmaps or overlays)
+- Phase 5: Lightweight interface for local use (Streamlit or simple GUI)
+
 ### Objectives
 - [Objective 1: e.g., Achieve >90% detection accuracy]
 - [Objective 2: Integrate with decision logic]
@@ -41,9 +48,10 @@ Skin imperfections can affect self-confidence and are often difficult to detect 
     - Kaggle: Acne Detection Dataset
     - ISIC Skin Lesion Archive
     - DermNet pigment/dark spot images
-- Size: ~5,000–15,000 images
+- Size: 5,000–15,000 images
 - Classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin
--Acquisition: Directly imported into Google Colab via Kaggle API; preprocessing (CLAHE, resizing, color space conversion) done in cloud environment.
+- Split: 70/15/15 train/val/test
+- Preprocessing: Augmentation, resizing to 640x640 [web:41]
 
 ### Architecture
 ![Model Diagram](images/architecture.png)
