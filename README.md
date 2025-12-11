@@ -1,12 +1,12 @@
 # [Project Title: e.g., Real-Time Object Detection for Waste Sorting]
 **CSC173 Intelligent Systems Final Project**  
 *Mindanao State University - Iligan Institute of Technology*  
-**Student:** [Your Full Name], [Student ID]  
-**Semester:** [e.g., AY 2025-2026 Sem 1]  
+**Student:** Chris Adrian D. Gumisad, 2020-3275
+**Semester:** AY 2025-2026 Sem 1  
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
 
 ## Abstract
-[150-250 words: Summarize problem (e.g., "Urban waste sorting in Mindanao"), dataset, deep CV method (e.g., YOLOv8 fine-tuned on custom trash images), key results (e.g., 92% mAP), and contributions.][web:25][web:41]
+This project aims to create a computer vision system capable of detecting skin imperfections such as dark spots, acne marks, and hyperpigmentation. Using publicly available datasets (Kaggle Acne Detection, ISIC Skin Lesion Archive, DermNet), the system will leverage color space segmentation combined with a lightweight CNN (MobileNetV2) for classification. The goal is to provide users an accessible tool to monitor skin clarity, assist makeup application, or track skincare improvements over time. Cloud-based training (Google Colab/Kaggle GPUs) ensures efficiency without heavy local hardware requirements.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -21,7 +21,7 @@
 
 ## Introduction
 ### Problem Statement
-[Describe the real-world vision problem and why it matters locally (e.g., IoT waste systems in Iligan).]
+Skin imperfections can affect self-confidence and are often difficult to detect accurately due to variations in lighting, skin tone, and subjective human perception. Manual inspection may miss subtle spots or marks, while existing beauty apps focus mainly on enhancement rather than precise detection. This project develops a computer vision-based system to objectively detect skin imperfections and provide visual feedback using deep learning and color segmentation.
 
 ### Objectives
 - [Objective 1: e.g., Achieve >90% detection accuracy]
@@ -37,9 +37,13 @@
 
 ## Methodology
 ### Dataset
-- Source: [e.g., Custom 5K images + COCO subset]
-- Split: 70/15/15 train/val/test
-- Preprocessing: Augmentation, resizing to 640x640 [web:41]
+- Source: 
+    - Kaggle: Acne Detection Dataset
+    - ISIC Skin Lesion Archive
+    - DermNet pigment/dark spot images
+- Size: ~5,000–15,000 images
+- Classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin
+-Acquisition: Directly imported into Google Colab via Kaggle API; preprocessing (CLAHE, resizing, color space conversion) done in cloud environment.
 
 ### Architecture
 ![Model Diagram](images/architecture.png)

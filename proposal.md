@@ -7,7 +7,7 @@
 A Computer Vision-Based System for Detecting Skin Imperfections Using Color Segmentation and Deep Learning
 
 ## 2. Problem Statement
-Skin imperfections such as dark spots, acne marks, and discoloration are one of the main factors that keep people from their self confidence wether in public or even private setting. It is often difficult to detect consistently due to variations like lighting, skin tone, and human perception. We can also do manual inspection but it is also subjective and prone to errors, leading to missed imperfections that are relevant for skincare monitoring or makeup application. Existing mobile beauty tools typically focus on enhancement rather than accurate detection. This project aims to create a reliable computer vision system capable of objectively identifying skin imperfections using color segmentation and deep learning, providing users an accessible tool for monitoring skin clarity and progress over time.
+Skin imperfections such as dark spots, acne marks, and discoloration are one of the main factors that keep people from their self confidence in public interaction or even private setting. It is often difficult to detect consistently due to variations like lighting, skin tone, and human perception. We can also do manual inspection but it is also subjective and prone to errors, leading to missed imperfections that are relevant for skincare monitoring or makeup application. Existing mobile beauty tools typically focus on enhancement rather than accurate detection. This project aims to create a reliable computer vision system capable of objectively identifying skin imperfections using color segmentation and deep learning, providing users an accessible tool for monitoring skin clarity and progress over time.
 
 ## 3. Objectives
 General Objective
@@ -41,17 +41,17 @@ You will only preview samples locally; processing and training will be done in t
 
 ## 5. Technical Approach
 - Architecture sketch
-    ##### 1. Cloud-based training (Google Colab GPU)
-    ##### 2. Color segmentation using OpenCV (runs fast even locally)
-    ##### 3. CNN inference with optimized model (MobileNetV2 or EfficientNet-B0)
-    ##### 4. Visualization (overlays/heatmaps)
+    - Cloud-based training (Google Colab GPU)
+    - Color segmentation using OpenCV
+    - CNN inference with optimized model (MobileNetV2)
+    - Visualization (overlays/heatmaps)
 
 - Model: MobileNetV2
 
 - Framework: 
-    - Training: Google Colab → PyTorch or TensorFlow
-    - Local Testing: ONNX Runtime (runs on CPU efficiently)
-    -Image Processing: OpenCV
+    - Training: Google Colab → PyTorch
+    - Local Testing: ONNX Runtime
+    - Image Processing: OpenCV
 
 - Hardware: Google Colab GPU (T4/A100) and Kaggle Notebook GPU
 
