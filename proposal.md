@@ -10,10 +10,10 @@ A Computer Vision-Based System for Detecting Skin Imperfections Using Color Segm
 Skin imperfections such as dark spots, acne marks, and discoloration are one of the main factors that keep people from their self confidence in public interaction or even private setting. It is often difficult to detect consistently due to variations like lighting, skin tone, and human perception. We can also do manual inspection but it is also subjective and prone to errors, leading to missed imperfections that are relevant for skincare monitoring or makeup application. Existing mobile beauty tools typically focus on enhancement rather than accurate detection. This project aims to create a reliable computer vision system capable of objectively identifying skin imperfections using color segmentation and deep learning, providing users an accessible tool for monitoring skin clarity and progress over time.
 
 ## 3. Objectives
-General Objective
+### General Objective
 - To develop a lightweight and cloud-assisted computer vision system capable of detecting skin imperfections using color segmentation and deep learning.
 
-Specific Objectives
+### Specific Objectives
 - Train a CNN model using cloud GPUs (Colab/Kaggle) to identify dark spots, acne marks, and discoloration.
 - Implement preprocessing (normalization, CLAHE, color space conversion) that runs efficiently even on low-end devices.
 - Use online/cloud platforms to handle model training, dataset processing, and evaluation.
@@ -26,7 +26,7 @@ Specific Objectives
     - ISIC Skin Lesion Archive
     - DermNet pigment/dark spot images
 Expected image count: 5,000–15,000 images
-You will only preview samples locally; processing and training will be done in the cloud.
+Can only preview samples locally; processing and training will be done in the cloud.
 
 - Classes: 
     - Dark Spots
@@ -35,7 +35,7 @@ You will only preview samples locally; processing and training will be done in t
     - Clear Skin (negative class)
 
 - Acquisition: 
-    - Import datasets directly from Kaggle into Google Colab (kaggle.json API).
+    - Import datasets directly from sources into Google Colab (kaggle.json API).
     - Preprocess images in Colab notebooks.
     - No need to download the dataset to your laptop.
 

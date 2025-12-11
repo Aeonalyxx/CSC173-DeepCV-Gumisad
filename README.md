@@ -2,7 +2,7 @@
 **CSC173 Intelligent Systems Final Project**  
 *Mindanao State University - Iligan Institute of Technology*  
 **Student:** Chris Adrian D. Gumisad, 2020-3275  
-**Semester:** AY 2025-2026 Sem 1
+**Semester:** AY 2025-2026 Sem 1  
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
 
 ## Abstract
@@ -50,21 +50,30 @@ Skin imperfections can affect self-confidence and are often difficult to detect 
     - DermNet pigment/dark spot images
 - Size: 5,000–15,000 images
 - Classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin
-- Split: 70/15/15 train/val/test
-- Preprocessing: Augmentation, resizing to 640x640 [web:41]
+- Acquisition: Directly imported into Google Colab via Kaggle API; preprocessing (CLAHE, resizing, color space conversion) done in cloud environment.
+- Preprocessing:
+  - Color space conversion (LAB / YCrCb)
+  - CLAHE contrast enhancement
+  - Skin region segmentation
+  - Patch extraction (224×224)
 
 ### Architecture
 ![Model Diagram](images/architecture.png)
-- Backbone: [e.g., CSPDarknet53]
-- Head: [e.g., YOLO detection layers]
-- Hyperparameters: Table below
+
+- Backbone: MobileNetV2 (pretrained on ImageNet)
+- Head: Fully connected classifier (4 classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin)
+- Output: Patch-level predictions + heatmap overlay
 
 | Parameter | Value |
-|-----------|-------|
-| Batch Size | 16 |
-| Learning Rate | 0.01 |
-| Epochs | 100 |
-| Optimizer | SGD |
+|-----------|--------|
+| Input Size | 224×224 |
+| Batch Size | 32 |
+| Learning Rate | 0.0001 |
+| Epochs | 20–30 |
+| Optimizer | Adam |
+| Loss Function | Cross-Entropy |
+| Framework | PyTorch |
+| Training Device | Google Colab GPU |
 
 ### Training Code Snippet
 train.py excerpt
