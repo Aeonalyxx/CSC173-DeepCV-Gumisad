@@ -41,10 +41,10 @@ You will only preview samples locally; processing and training will be done in t
 
 ## 5. Technical Approach
 - Architecture sketch
-    1. Cloud-based training (Google Colab GPU)
-    2. Color segmentation using OpenCV (runs fast even locally)
-    3. CNN inference with optimized model (MobileNetV2 or EfficientNet-B0)
-    4. Visualization (overlays/heatmaps)
+    # 1. Cloud-based training (Google Colab GPU)
+    # 2. Color segmentation using OpenCV (runs fast even locally)
+    # 3. CNN inference with optimized model (MobileNetV2 or EfficientNet-B0)
+    # 4. Visualization (overlays/heatmaps)
 
 - Model: MobileNetV2
 
@@ -63,22 +63,22 @@ You will only preview samples locally; processing and training will be done in t
         - Kaggle Notebooks
         - HuggingFace Spaces
 
-Challenge 2 — Dataset too large for your storage
+- Challenge 2 — Dataset too large for your storage
     Solution: Load dataset directly in Colab via Kaggle API
 
-Challenge 3 — Heavy CNN models slow on CPU
+- Challenge 3 — Heavy CNN models slow on CPU
     Solution: 
     - Use MobileNetV2 or EfficientNet-B0
     - Export to ONNX for fast inference
     - Use small image sizes (224x224)
 
-Challenge 4 — Cloud GPU time limits
+- Challenge 4 — Cloud GPU time limits
     Solution:
     - Use Kaggle GPU as backup
     - Save checkpoints to Google Drive
     - Use smaller batch sizes and mixed precision
 
-Challenge 5 — Internet dependency
+- Challenge 5 — Internet dependency
     Solution:
     - Cache datasets in Colab
     - Keep notebooks synced in Drive
