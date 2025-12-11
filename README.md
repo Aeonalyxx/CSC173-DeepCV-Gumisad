@@ -1,4 +1,4 @@
-# [Project Title: e.g., Real-Time Object Detection for Waste Sorting]
+# Project Title: A Computer Vision-Based System for Detecting Skin Imperfections Using Color Segmentation and Deep Learning
 **CSC173 Intelligent Systems Final Project**  
 *Mindanao State University - Iligan Institute of Technology*  
 **Student:** Chris Adrian D. Gumisad, 2020-3275  
