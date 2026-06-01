@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
 
 ## Abstract
-This project aims to create a computer vision system capable of detecting skin imperfections such as dark spots, acne marks, and hyperpigmentation. Using publicly available datasets (Kaggle Acne Detection, ISIC Skin Lesion Archive, DermNet), the system will leverage color space segmentation combined with a lightweight CNN (MobileNetV2) for classification. The goal is to provide users an accessible tool to monitor skin clarity, assist makeup application, or track skincare improvements over time. Cloud-based training (Google Colab/Kaggle GPUs) ensures efficiency without heavy local hardware requirements.
+This project develops a lightweight computer vision system that detects skin imperfections such as acne marks, dark spots, and discoloration. The system uses a pretrained MobileNetV2 model fine-tuned on a curated dataset of approximately 1000 images. It performs binary classification (Clear Skin vs Skin Imperfection) and uses Grad-CAM to visualize affected regions. Training is done using Google Colab with GPU support, while inference and testing can be done locally using VSCode.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -21,107 +21,187 @@ This project aims to create a computer vision system capable of detecting skin i
 
 ## Introduction
 ### Problem Statement
-Skin imperfections can affect self-confidence and are often difficult to detect accurately due to variations in lighting, skin tone, and subjective human perception. Manual inspection may miss subtle spots or marks, while existing beauty apps focus mainly on enhancement rather than precise detection. This project develops a computer vision-based system to objectively detect skin imperfections and provide visual feedback using deep learning and color segmentation.
+Skin imperfections are difficult to detect consistently due to lighting conditions, skin tone variations, and subjective human judgment. Existing beauty applications often focus on enhancement rather than accurate detection and analysis.This project proposes a computer vision system that can objectively classify skin images into clear or imperfect categories and provide visual explanations of predictions using deep learning.
 
 ### Project Plan
-- Phase 1: Dataset collection and preprocessing (resize, CLAHE, color segmentation)
-- Phase 2: Model training (MobileNetV2 with transfer learning on cloud GPUs)
-- Phase 3: Model evaluation (accuracy, precision, recall, F1-score)
-- Phase 4: Demo visualization (patch heatmaps or overlays)
-- Phase 5: Lightweight interface for local use (Streamlit or simple GUI)
+- Phase 1: Dataset collection and curation (~1000 handpicked images per class: Clear Skin and Skin Imperfection)
+- Phase 2: Image preprocessing (resizing to 224×224, CLAHE enhancement, normalization)
+- Phase 3: Model training using MobileNetV2 with transfer learning on Google Colab
+- Phase 4: Model evaluation using accuracy, precision, recall, F1-score, and confusion matrix
+- Phase 5: Explainability using Grad-CAM visualization for region highlighting
+- Phase 6: Model export to ONNX and lightweight local inference using VSCode + Streamlit demo
 
 ### Objectives
-- Objective 1: Achieve at least 90% classification accuracy for skin-imperfection detection
-- Objective 2: Integrate color-segmentation–based region filtering to improve model focus on skin areas
-- Objective 3: Deploy a lightweight demo applicaton (Streamlit/local GUI) capable of running on normal laptops
+- Objective 1: Train a binary classifier (Clear Skin vs Skin Imperfection) using MobileNetV2 with transfer learning
+- Objective 2: Build a curated dataset of approximately 1000 images per class with proper labeling and cleaning
+- Objective 3: Apply image preprocessing techniques including resizing, CLAHE enhancement, and normalization
+- Objective 4: Achieve strong classification performance using cloud-based training (Google Colab GPU)
+- Objective 5: Evaluate model performance using accuracy, precision, recall, F1-score, and confusion matrix on a held-out test set
+- Objective 6: Generate Grad-CAM heatmaps to visually explain model predictions
+- Objective 7: Deploy a lightweight inference system using ONNX and a Streamlit-based local demo
 
 ![Problem Demo](images/problem_example.gif) [web:41]
 
 ## Related Work
-- Work 1: CNN and YOLO-based acne and skin lesion detection in dermatology applications
-- Work 2: Transfer learning (MobileNet2) proven effective for limited medical image datasets
-- Gap Addressed: Most systems focus on severe dermatological diseases; this project targets cosmetic imperfections (dark spots, acne marks, pigmentation), aiming for lightweight deployment and real-time feedback
+- CNN-based approaches have been widely used for skin lesion and acne detection tasks, demonstrating strong performance in image classification problems.
+- Transfer learning using lightweight architectures such as MobileNetV2 has proven effective for small to medium-sized medical and cosmetic image datasets.
+- Most existing systems focus on disease diagnosis or clinical dermatology; this project instead targets cosmetic-level skin analysis such as acne marks, dark spots, and pigmentation, with an emphasis on lightweight deployment and interpretability using Grad-CAM.
 
 ## Methodology
+
 ### Dataset
-- Source: 
-    - Kaggle: Acne Detection Dataset
-    - ISIC Skin Lesion Archive
-    - DermNet pigment/dark spot images
-- Size: 5,000 – 15,000 images
-- Classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin
-- Acquisition: Directly imported into Google Colab via Kaggle API; preprocessing (CLAHE, resizing, color space conversion) done in cloud environment.
-- Preprocessing:
-  - Color space conversion (LAB / YCrCb)
-  - CLAHE contrast enhancement
-  - Skin region segmentation
-  - Patch extraction (224×224)
+- **Source:**
+  - Kaggle skin and acne-related datasets
+  - Public dermatology image datasets (e.g., ISIC, DermNet)
+  - Manually curated and filtered internet-sourced images
+
+- **Size:** ~1000 images total (balanced dataset)
+
+- **Classes:**
+  - Clear Skin
+  - Skin Imperfection (acne marks, dark spots, pigmentation)
+
+- **Acquisition:**
+  - Downloaded via Kaggle API in Google Colab
+  - Manually cleaned, filtered, and labeled
+  - Split into train, validation, and test sets
+
+- **Preprocessing:**
+- Resize images to 224×224 (required for MobileNetV2)
+- Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) for contrast enhancement
+- Normalize pixel values using ImageNet statistics
+- Convert images to tensor format for PyTorch pipeline  
 
 ### Architecture
 ![Model Diagram](images/architecture.png)
 
-- Backbone: MobileNetV2 (pretrained on ImageNet)
-- Head: Fully connected classifier (4 classes: Dark Spots, Acne Marks, Hyperpigmentation, Clear Skin)
-- Output: Patch-level predictions + heatmap overlay
+- **Backbone:** MobileNetV2 (pretrained on ImageNet)
+- **Task:** Binary image classification (Clear Skin vs Skin Imperfection)
+- **Input:** 224×224 RGB skin images
+- **Output:** Predicted class + confidence score
+- **Explainability:** Grad-CAM heatmap overlay highlighting important regions used for prediction
+- **Deployment:** ONNX export for lightweight inference + Streamlit demo application
 
 | Parameter | Value |
 |-----------|--------|
 | Input Size | 224×224 |
 | Batch Size | 32 |
 | Learning Rate | 0.0001 |
-| Epochs | 20–30 |
+| Epochs | 20 |
 | Optimizer | Adam |
-| Loss Function | Cross-Entropy |
+| Loss Function | CrossEntropyLoss |
 | Framework | PyTorch |
-| Training Device | Google Colab GPU |
+| Training Device | Google Colab GPU (T4/A100) |
 
 ### Training Code Snippet
-train.py excerpt
-model = YOLO('yolov8n.pt')
-model.train(data='dataset.yaml', epochs=100, imgsz=640)
+- MobileNetV2
+- CrossEntropyLoss
+- PyTorch training loop
+- Your real binary classifier setup
 
 
 ## Experiments & Results
-### Metrics
-| Model | mAP@0.5 | Precision | Recall | Inference Time (ms) |
-|-------|---------|-----------|--------|---------------------|
-| Baseline (YOLOv8n) | 85% | 0.87 | 0.82 | 12 |
-| **Ours (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
+### Evaluation Metrics (Test Set)
 
-![Training Curve](images/loss_accuracy.png)
+| Metric | Clear Skin | Imperfection | Overall |
+|--------|------------|--------------|----------|
+| Precision | 0.99 | 1.00 | 0.995 |
+| Recall | 1.00 | 0.99 | 0.995 |
+| F1-score | 0.99 | 0.99 | 0.99 |
+| Support | 150 | 150 | 300 |
+
+### Overall Performance
+- **Test Accuracy:** 99%
+- **Model:** MobileNetV2 (fine-tuned)
+- **Task:** Binary classification (Clear vs Imperfection)
+
+### Confusion Matrix
+- Very low misclassification rate observed
+- Balanced performance across both classes
+
+### Inference Performance
+
+| Metric | Value |
+|--------|------|
+| Average Inference Time | 39.94 ms |
+| FPS | 25.04 FPS |
+| Model Format | PyTorch + ONNX |
+| Deployment | Streamlit (local demo) |
+
+![Training Curve](models/results/loss_acc.png)
 
 ### Demo
 ![Detection Demo](demo/detection.gif)
-[Video: [CSC173_YourLastName_Final.mp4](demo/CSC173_YourLastName_Final.mp4)] [web:41]
+[Video: [CSC173_Gumisad_Final.mp4](demo/CSC173_Gumisad_Final.mp4)] [web:41]
 
 ## Discussion
-- Strengths: [e.g., Handles occluded trash well]
-- Limitations: [e.g., Low-light performance]
-- Insights: [e.g., Data augmentation boosted +7% mAP] [web:25]
+
+### Strengths
+- The model achieved high classification performance (~99% test accuracy) in distinguishing Clear Skin from Skin Imperfection images.
+- MobileNetV2 provides efficient and lightweight inference suitable for low-end devices.
+- Grad-CAM visualization improves interpretability by highlighting regions contributing to predictions.
+- ONNX export enables faster and more portable inference for local deployment.
+
+### Limitations
+- Performance depends on image quality and lighting conditions.
+- Small dataset size (~1000 images) may limit generalization to real-world diversity.
+- Model may still be sensitive to extreme skin tones or unusual image angles.
+- Binary classification limits detailed categorization of different types of imperfections.
+
+### Insights
+- Pretrained MobileNetV2 significantly improves convergence on small datasets.
+- CLAHE preprocessing improves contrast and helps highlight skin texture features.
+- Grad-CAM helps validate that the model focuses on relevant skin regions rather than background artifacts.
 
 ## Ethical Considerations
-- Bias: Dataset skewed toward plastic/metal; rural waste underrepresented
-- Privacy: No faces in training data
-- Misuse: Potential for surveillance if repurposed [web:41]
+
+- **Bias:** The dataset may not fully represent all skin tones, lighting conditions, or camera qualities, which can affect model fairness and generalization.
+- **Privacy:** All images used are publicly sourced or manually curated; no personal identity data is stored or processed.
+- **Misuse:** The system is designed for educational and research purposes only and should not be used as a medical diagnostic tool.
 
 ## Conclusion
-[Key achievements and 2-3 future directions, e.g., Deploy to Raspberry Pi for IoT.]
+
+This project successfully developed a lightweight deep learning-based system for detecting skin imperfections using MobileNetV2 and Grad-CAM visualization. The model achieved strong performance on a curated dataset, with approximately 99% accuracy on the test set.
+
+Key achievements include:
+- Development of a binary classification model for skin analysis
+- Integration of image preprocessing techniques (CLAHE, normalization, resizing)
+- Implementation of Grad-CAM for model interpretability
+- Deployment-ready pipeline using ONNX and Streamlit
+
+### Future Work
+- Expand dataset to include more diverse skin tones and lighting conditions
+- Extend classification to multi-class skin conditions (e.g., acne, pigmentation, scars)
+- Improve robustness using data augmentation and larger datasets
+- Deploy system as a mobile or web-based application for real-time usage
 
 ## Installation
-1. Clone repo: `git clone https://github.com/yourusername/CSC173-DeepCV-YourLastName`
+1. Clone repo: `git clone https://github.com/Aeonalyxx/CSC173-DeepCV-Gumisad`
+2. Venv setup (If running in local)
 2. Install deps: `pip install -r requirements.txt`
-3. Download weights: See `models/` or run `download_weights.sh` [web:22][web:25]
+3. Streamlit run command: `streamlit run app.py` (in app folder)
 
 **requirements.txt:**
-torch>=2.0
-ultralytics
-opencv-python
-albumentations
+matplotlib==3.10.9
+numpy==2.4.6
+onnx==1.21.0
+onnxruntime==1.26.0
+onnxscript==0.7.0
+opencv-python==4.13.0.92
+pillow==12.2.0
+scikit-learn==1.8.0
+streamlit==1.58.0
+torch==2.12.0
+torchvision==0.27.0
+tqdm==4.67.3
+ipykernel==7.2.0
+seaborn==0.13.2
 
 ## References
-[1] Jocher, G., et al. "YOLOv8," Ultralytics, 2023.  
-[2] Deng, J., et al. "ImageNet: A large-scale hierarchical image database," CVPR, 2009. [web:25]
+[1] He, K. et al. “Deep Residual Learning for Image Recognition.” CVPR, 2016
+[2] Sandler, M. et al. “MobileNetV2: Inverted Residuals and Linear Bottlenecks.” CVPR, 2018
+[3] Kaggle Acne and CelebA Dataset
 
 ## GitHub Pages
-View this project site: [https://jjmmontemayor.github.io/CSC173-DeepCV-Montemayor/](https://jjmmontemayor.github.io/CSC173-DeepCV-Montemayor/) [web:32]
+View this project site: [https://Aeonalyxx.github.io/CSC173-DeepCV-Gumisad/](https://Aeonalyxx.github.io/CSC173-DeepCV-Gumisad/) [web:32]
 

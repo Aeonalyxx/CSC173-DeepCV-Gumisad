@@ -1,8 +1,8 @@
 # CSC173 Deep Computer Vision Project Progress Report
-**Student:** [Your Name], [ID]  
-**Date:** [Progress Submission Date]  
-**Repository:** [https://github.com/yourusername/CSC173-DeepCV-YourLastName](https://github.com/yourusername/CSC173-DeepCV-YourLastName)  
-**Commits Since Proposal:** [X commits] | **Last Commit:** [Date]
+**Student:** Chris Adrian Gumisad, 2020-3275  
+**Date:** 31/05/2026
+**Repository:** [https://github.com/Aeonalyxx/CSC173-DeepCV-Gumisad](https://github.com/Aeonalyxx/CSC173-DeepCV-Gumisad)  
+**Commits Since Proposal:** 4 | **Last Commit:** 02/06/2026
 
 ## 📊 Current Status
 | Milestone | Status | Notes |
@@ -13,38 +13,54 @@
 | Model Fine-tuning | ⏳ Not Started | Planned for tomorrow |
 
 ## 1. Dataset Progress
-- **Total images:** [e.g., 4,200]
-- **Train/Val/Test split:** [e.g., 70%/15%/15% or 2,940/630/630]
-- **Classes implemented:** [e.g., 6 classes: plastic, metal, paper, glass, organic, other]
-- **Preprocessing applied:** Resize(640), normalization, augmentation (flip, rotate, brightness)
+- **Total images:** 2000
+- **Train/Val/Test split:** 70%/15%/15%
+- **Classes implemented:** Clear skin, Skin Imperfection
+- **Preprocessing applied:** Image resizing (224 × 224), CLAHE enhancement, RGB normalization, Data Augmentation, Dataset splitting (Train / Validation / Test)
 
 **Sample data preview:**
-![Dataset Sample](images/dataset_sample.png)
+![Dataset Sample](images/dataset.png)
 
 ## 2. Training Progress
 
 **Training Curves (so far)**
-![Loss Curve](images/loss_curve.png)
-![mAP Curve](images/map_curve.png)
+![Loss Curve & Accuracy Curve](models/results/loss_acc.png)
 
 **Current Metrics:**
 | Metric | Train | Val |
-|--------|-------|-----|
-| Loss | [0.45] | [0.62] |
-| mAP@0.5 | [78%] | [72%] |
-| Precision | [0.81] | [0.75] |
-| Recall | [0.73] | [0.68] |
+|---------|---------|---------|
+| Loss | 0.1574 | 0.1145 |
+| Accuracy | 0.9879 | 0.9967 |
+
+**Test Set Evaluation**
+| Metric | Value |
+|----------|----------|
+| Accuracy | 99.0% |
+| Precision | 0.99 |
+| Recall | 0.99 |
+| F1-score | 0.99 |
+
+**Classification Report**
+| precision | recall | f1-score | support |
+|----------|----------|----------|----------|
+| Clear Skin | 0.99 | 1.00 | 0.99 | 150 |
+| Imperfection | 1.00 | 0.99 | 0.99 | 150 |
+|----------|----------|----------|----------|
+| accuracy |          | 0.99 | 300 |
+| macro avg | 0.99 | 0.99 | 0.99 | 300 |
+| weighted avg | 0.99 | 0.99 | 0.99 | 300 |
 
 ## 3. Challenges Encountered & Solutions
 | Issue | Status | Resolution |
 |-------|--------|------------|
-| CUDA out of memory | ✅ Fixed | Reduced batch_size from 32→16 |
-| Class imbalance | ⏳ Ongoing | Added class weights to loss function |
-| Slow validation | ⏳ Planned | Implement early stopping |
+| Issue	Status	Resolution Limited local hardware | ✅ Fixed | Used lightweight MobileNetV2 and ONNX Runtime |
+| Dataset inconsistency | ✅ Fixed | Manually curated and verified images |
+| Small dataset size | ✅ Fixed | Balanced classes |
+| Model explainability | ✅ Fixed | Implemented Grad-CAM visualization|
+| Local deployment efficiency | ✅ Fixed | Streamlit + ONNX Runtime integration |
 
 ## 4. Next Steps (Before Final Submission)
-- [ ] Complete training (50 more epochs)
-- [ ] Hyperparameter tuning (learning rate, augmentations)
-- [ ] Baseline comparison (vs. original pre-trained model)
+- [/] Complete training
+- [/] Perform final testing and validation
 - [ ] Record 5-min demo video
 - [ ] Write complete README.md with results

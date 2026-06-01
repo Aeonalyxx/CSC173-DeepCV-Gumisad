@@ -1,0 +1,3 @@
+
+Average Inference Time (ms): 39.94
+Frames Per Second (FPS): 25.04

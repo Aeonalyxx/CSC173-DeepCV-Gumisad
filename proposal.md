@@ -4,82 +4,107 @@
 **Date:** 12/11/2025
 
 ## 1. Project Title 
-A Computer Vision-Based System for Detecting Skin Imperfections Using Color Segmentation and Deep Learning
+A Deep Learning-Based Skin Imperfection Detection System Using MobileNetV2 and Grad-CAM
 
 ## 2. Problem Statement
-Skin imperfections such as dark spots, acne marks, and discoloration are one of the main factors that keep people from their self confidence in public interaction or even private setting. It is often difficult to detect consistently due to variations like lighting, skin tone, and human perception. We can also do manual inspection but it is also subjective and prone to errors, leading to missed imperfections that are relevant for skincare monitoring or makeup application. Existing mobile beauty tools typically focus on enhancement rather than accurate detection. This project aims to create a reliable computer vision system capable of objectively identifying skin imperfections using color segmentation and deep learning, providing users an accessible tool for monitoring skin clarity and progress over time.
+Skin imperfections such as acne marks, dark spots, and discoloration can affect skin appearance and are often difficult to assess consistently through manual observation. Factors such as lighting conditions, image quality, skin tone variations, and subjective human judgment make visual inspection unreliable.
+
+While many beauty and skincare applications provide image enhancement and filtering features, relatively few focus on detecting and analyzing skin imperfections using artificial intelligence. An automated detection system can provide a more objective method for identifying skin conditions and highlighting areas of concern.
+
+This project aims to develop a lightweight computer vision system capable of detecting skin imperfections from facial skin images using deep learning. The system will classify images as either clear skin or skin with imperfections and provide visual explanations using Grad-CAM heatmaps to indicate regions that influenced the model's prediction.
 
 ## 3. Objectives
 ### General Objective
-- To develop a lightweight and cloud-assisted computer vision system capable of detecting skin imperfections using color segmentation and deep learning.
+- To develop a lightweight deep learning-based system for detecting skin imperfections using MobileNetV2 and Grad-CAM visualization.
 
 ### Specific Objectives
-- Train a CNN model using cloud GPUs (Colab/Kaggle) to identify dark spots, acne marks, and discoloration.
-- Implement preprocessing (normalization, CLAHE, color space conversion) that runs efficiently even on low-end devices.
-- Use online/cloud platforms to handle model training, dataset processing, and evaluation.
-- Generate accurate visual outputs (heatmaps/overlays) without requiring heavy local computation.
-- Develop a lightweight demo app/interface that runs on a low end laptop.
+- Build a curated dataset consisting of approximately 2,000 skin images divided into clear skin and skin imperfection classes.
+- Apply image preprocessing techniques including resizing, CLAHE enhancement, and normalization.
+- Train a MobileNetV2-based binary classification model using transfer learning.
+- Evaluate model performance using accuracy, precision, recall, F1-score, and confusion matrix analysis.
+- Measure model inference speed using ONNX Runtime.
+- Generate Grad-CAM visualizations to highlight regions contributing to the model’s predictions.
+- Develop a Streamlit-based application for local image testing and result visualization.
 
 ## 4. Dataset Plan
-- Source: Use online datasets (no local storage required):
-    - Kaggle: Acne Detection Dataset
-    - ISIC Skin Lesion Archive
-    - DermNet pigment/dark spot images
-Expected image count: 5,000–15,000 images
-Can only preview samples locally; processing and training will be done in the cloud.
+- **Source:** Handpicked and curated datasets from online sources  
+  - Kaggle skin and acne datasets  
+  - ISIC skin image datasets
+  - DermNet dermatology image collections
+  - Manually filtered internet-sourced images  
 
-- Classes: 
-    - Dark Spots
-    - Acne Marks
-    - Hyperpigmentation
-    - Clear Skin (negative class)
+- **Total Dataset Size:** ~2000 images  
 
-- Acquisition: 
-    - Import datasets directly from sources into Google Colab (kaggle.json API).
-    - Preprocess images in Colab notebooks.
-    - No need to download the dataset to your laptop.
+- **Classes:**
+  - Clear Skin
+  - Skin Imperfection (acne, dark spots, discoloration)
+
+- **Dataset Structure:**
+```text
+dataset/
+    train/
+        clear/
+        imperfection/
+
+    val/
+        clear/
+        imperfection/
+
+    test/
+        clear/
+        imperfection/
+
+- **Acquisition:** 
+    - Download datasets using Kaggle
+    - Manually review and remove irrelevant or low-quality samples.
+    - Resize and preprocess images.
+    - Split dataset into training, validation, and test sets
+    - Store datasets locally and process them through Google Colab and VSCode environments.
 
 ## 5. Technical Approach
-- Architecture sketch
-    - Cloud-based training (Google Colab GPU)
-    - Color segmentation using OpenCV
-    - CNN inference with optimized model (MobileNetV2)
-    - Visualization (overlays/heatmaps)
+### System Pipeline
 
-- Model: MobileNetV2
-
-- Framework: 
-    - Training: Google Colab → PyTorch
-    - Local Testing: ONNX Runtime
-    - Image Processing: OpenCV
-
-- Hardware: Google Colab GPU (T4/A100) and Kaggle Notebook GPU
+The system follows a simple deep learning workflow:
+    
+    Input Image (Skin/Face Image)
+    Preprocessing:
+        Resize image to 224×224
+        Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
+        Normalize pixel values
+    Feature Extraction:
+        Use pretrained MobileNetV2 as backbone
+    Classification:
+        Binary output: Clear Skin or Skin Imperfection
+    Explainability:
+        Generate Grad-CAM heatmap to highlight important regions
+    Output:
+        Predicted Class
+        Confidence score
+        Heatmap overlay visualization
+    Model Details:
+        Model: MobileNetV2 (pretrained on ImageNet)
+        Framework: PyTorch
+        Input Size: 224×224 RGB images
+        Output: Binary classification
+    Tools & Environment:
+        Google Colab (training with GPU support)
+        VSCode (local testing and development)
+        OpenCV (image preprocessing)
+        PyTorch (deep learning framework)
+        ONNX (optional model optimization for inference)
 
 ## 6. Expected Challenges & Mitigations
-- Challenge 1 — Weak laptop hardware
-    Solution: 
-    Perform all training and heavy processing in:
-        - Google Colab
-        - Kaggle Notebooks
-        - HuggingFace Spaces
+- Challenge 1 — Limited hardware performance
+    Solution: Perform model training using Google Colab GPU resources and use ONNX Runtime for lightweight local inference.
 
-- Challenge 2 — Dataset too large for your storage
-    Solution: Load dataset directly in Colab via Kaggle API
+- Challenge 2 — Dataset Quality and Consistency
+    Solution: Manually inspect, clean, and verify image labels before training to reduce noise and improve data quality.
 
-- Challenge 3 — Heavy CNN models slow on CPU
-    Solution: 
-    - Use MobileNetV2 or EfficientNet-B0
-    - Export to ONNX for fast inference
-    - Use small image sizes (224x224)
+- Challenge 3 — Small Dataset Size
+    Solution: Maintain balanced class distribution and apply image augmentation techniques to improve model generalization.
 
-- Challenge 4 — Cloud GPU time limits
-    Solution:
-    - Use Kaggle GPU as backup
-    - Save checkpoints to Google Drive
-    - Use smaller batch sizes and mixed precision
+- Challenge 4: Model Overfitting
+    Solution: Use transfer learning with MobileNetV2, dropout layers, and validation monitoring during training.
 
-- Challenge 5 — Internet dependency
-    Solution:
-    - Cache datasets in Colab
-    - Keep notebooks synced in Drive
-    - Export model only once for local use
+- Challenge 5 — Interpretation of Predictions
+    Solution: Use Grad-CAM visualization to highlight image regions that contribute to the model’s predictions.
