@@ -1,4 +1,4 @@
-# Project Title: A Computer Vision-Based System for Detecting Skin Imperfections Using Color Segmentation and Deep Learning
+# Project Title: A Deep Learning-Based Skin Imperfection Detection System Using MobileNetV2 and Grad-CAM
 **CSC173 Intelligent Systems Final Project**  
 *Mindanao State University - Iligan Institute of Technology*  
 **Student:** Chris Adrian D. Gumisad, 2020-3275  
