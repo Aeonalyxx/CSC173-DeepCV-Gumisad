@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
 
 ## Abstract
-This project develops a lightweight computer vision system that detects skin imperfections such as acne marks, dark spots, and discoloration. The system uses a pretrained MobileNetV2 model fine-tuned on a curated dataset of approximately 1000 images. It performs binary classification (Clear Skin vs Skin Imperfection) and uses Grad-CAM to visualize affected regions. Training is done using Google Colab with GPU support, while inference and testing can be done locally using VSCode.
+This project develops a lightweight computer vision system that detects skin imperfections such as acne marks, dark spots, and discoloration. The system uses a pretrained MobileNetV2 model fine-tuned on a curated dataset of approximately 1000 images for each class. It performs binary classification (Clear Skin vs Skin Imperfection) and uses Grad-CAM to visualize affected regions. Training is done using Google Colab with GPU support, while inference and testing can be done locally using VSCode.
 
 ## Table of Contents
 - [Introduction](#introduction)
